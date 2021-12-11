@@ -17,10 +17,10 @@ def action(update, context):
 
 ADMIN = '590924106'
 admin_states = {}
-groups_array = [
-    '931-21', '932-21', '941-21', # .......
-
-]
+groups_array = {
+    '931-21': 'jadbvalll',
+    '932-21': 'jadval2222'
+}
 
 user_states = {
     'faculty': 'u1',
@@ -70,8 +70,9 @@ def groups(update, context):
 
 
 def salom(update, context):
-    if update.message.text.split()[0] in groups_array:
-        update.message.reply_text("SAlom")
+    g_number = update.message.text.split()[0]
+    if g_number in groups_array:
+        update.message.reply_text(groups_array[g_number])
     return user_states['groups']
 #
 # def  back(update, context):

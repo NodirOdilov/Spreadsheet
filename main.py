@@ -17,6 +17,10 @@ def action(update, context):
 
 ADMIN = '590924106'
 admin_states = {}
+groups_array = [
+    '931-21', '932-21', '941-21', # .......
+
+]
 
 user_states = {
     'faculty': 'u1',
@@ -64,6 +68,11 @@ def groups(update, context):
     update.message.reply_text("Guruhlardan бирини танланг:", reply_markup=m)
     return user_states['groups']
 
+
+def salom(update, context):
+    if update.message.text.split()[0] in groups_array:
+        update.message.reply_text("SAlom")
+    return user_states['groups']
 #
 # def  back(update, context):
 #
@@ -91,6 +100,7 @@ def main():
                 MessageHandler(Filters.regex("Asosiy Menyu"), start)
             ],
             user_states['groups']: [
+                MessageHandler(Filters.text, salom),
                 MessageHandler(Filters.regex("Orqaga"), courses),
                 MessageHandler(Filters.regex("Asosiy Menyu"), start)
             ]

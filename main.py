@@ -18,7 +18,10 @@ def action(update, context):
 ADMIN = '590924106'
 admin_states = {}
 groups_array = {
-    '931-21': 'jadbvalll',
+    '931-21': 'Dushanba.\n',
+    '931-21': 'Bu yerda jadval bor',
+    '931-21': 'Bu yerda jadval bor',
+    '931-21': 'Bu yerda jadval bor',
     '932-21': 'jadval2222'
 }
 
@@ -34,7 +37,7 @@ test_steps = []
 
 def start(update, context):
     chat_id = str(update.message.from_user.id)
-    update.message.reply_text("Aссалому алейкум. Менюлардан бирини танланг:", reply_markup=faculty_menu)
+    update.message.reply_text("Assalomu aleykum - Здравствуйте\nFakultetni tanlang - Выберите факультет:", reply_markup=faculty_menu)
     return user_states['faculty']
 
 
@@ -42,7 +45,7 @@ def courses(update, context):
     admin_steps.clear()
     admin_steps.append(update.message.text)
     print(admin_steps)
-    update.message.reply_text("Kurslardan бирини танланг:", reply_markup=courses_menu)
+    update.message.reply_text("Kursni tanlang - Выберите курс:", reply_markup=courses_menu)
     return user_states['courses']
 
 def groups(update, context):
@@ -65,7 +68,7 @@ def groups(update, context):
             m = ki_menu_3
         else:
             m = ki_menu_4
-    update.message.reply_text("Guruhlardan бирини танланг:", reply_markup=m)
+    update.message.reply_text("Guruhni tanlang - Выберите группу:", reply_markup=m)
     return user_states['groups']
 
 

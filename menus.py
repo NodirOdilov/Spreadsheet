@@ -2,7 +2,7 @@ from telegram import ReplyKeyboardMarkup, KeyboardButton
 
 
 faculty_menu = ReplyKeyboardMarkup([
-    ['TT', 'KI']
+    ['TTF', 'KIF']
 ], resize_keyboard=True)
 
 
@@ -16,8 +16,8 @@ courses_menu = ReplyKeyboardMarkup([
         KeyboardButton(text='4-kurs'),
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ], resize_keyboard=True)
 
@@ -31,8 +31,8 @@ tt_menu_1 = ReplyKeyboardMarkup([
         KeyboardButton(text="942-21 DI (o'z)")
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ], resize_keyboard=True)
 
@@ -43,14 +43,14 @@ tt_menu_2 = ReplyKeyboardMarkup([
     ],
     [
         KeyboardButton(text="942-20 DI (o'z)"),
-        KeyboardButton(text="932-20 TT (ru)")
+        KeyboardButton(text="943-20 DI (ru)")
     ],
     [
-        KeyboardButton(text="943-20 DI (ru)"),
+        KeyboardButton(text="932-20 TT (ru)"),
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ], resize_keyboard=True)
 
@@ -71,8 +71,8 @@ tt_menu_3 = ReplyKeyboardMarkup([
         KeyboardButton(text="944-19 DI (ru)"),
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ], resize_keyboard=True)
 
@@ -93,8 +93,8 @@ tt_menu_4 = ReplyKeyboardMarkup([
         KeyboardButton(text="933-18 TT (ru)"),
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ],resize_keyboard=True)
 
@@ -116,8 +116,8 @@ ki_menu_1 = ReplyKeyboardMarkup([
         KeyboardButton(text="922-21 AKT (ru)")
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu')
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu')
     ]
 ], resize_keyboard=True)
 
@@ -134,8 +134,8 @@ ki_menu_2 = ReplyKeyboardMarkup([
         KeyboardButton(text="912-20 KI (ru)")
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ], resize_keyboard=True)
 
@@ -160,11 +160,17 @@ ki_menu_3 = ReplyKeyboardMarkup([
         KeyboardButton(text="922-19 AKT (ru)"),
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
     ]
 ], resize_keyboard=True)
 
+def courses(bot, update):
+    query = update.callback_query
+    reply_markup = KeyboardButtoon(get_main_menu())
+    bot.edit_message_text("Example example 2", chat_id=query.message.chat_id, message_id=query.message.message_id, reply_markup=reply_markup)
+
+    return courses_menu
 ki_menu_4 = ReplyKeyboardMarkup([
     [
         KeyboardButton(text="911-18 KI (o'z)"),
@@ -187,7 +193,8 @@ ki_menu_4 = ReplyKeyboardMarkup([
         KeyboardButton(text="922-18 AKT (ru)"),
     ],
     [
-        KeyboardButton(text='Orqaga'),
-        KeyboardButton(text='Asosiy Menyu'),
+        KeyboardButton(text='🔙Orqaga'),
+        KeyboardButton(text='🔝Asosiy Menyu'),
+
     ]
 ], resize_keyboard=True)

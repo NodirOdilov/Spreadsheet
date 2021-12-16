@@ -165,12 +165,6 @@ ki_menu_3 = ReplyKeyboardMarkup([
     ]
 ], resize_keyboard=True)
 
-def courses(bot, update):
-    query = update.callback_query
-    reply_markup = KeyboardButtoon(get_main_menu())
-    bot.edit_message_text("Example example 2", chat_id=query.message.chat_id, message_id=query.message.message_id, reply_markup=reply_markup)
-
-    return courses_menu
 ki_menu_4 = ReplyKeyboardMarkup([
     [
         KeyboardButton(text="911-18 KI (o'z)"),

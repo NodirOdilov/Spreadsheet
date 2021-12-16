@@ -87,10 +87,12 @@ def main():
         ],
         states={
             user_states['faculty']: [
+                CommandHandler('start', start),
                 MessageHandler(Filters.regex("TTF"), courses),
                 MessageHandler(Filters.regex("KIF"), courses)
             ],
             user_states['courses']: [
+                CommandHandler('start', start),
                 MessageHandler(Filters.regex("1-kurs"), groups),
                 MessageHandler(Filters.regex("2-kurs"), groups),
                 MessageHandler(Filters.regex("3-kurs"), groups),
@@ -99,6 +101,7 @@ def main():
                 MessageHandler(Filters.regex("🔝Asosiy Menyu"), start)
             ],
             user_states['groups']: [
+                CommandHandler('start', start),
                 MessageHandler(Filters.regex("🔙Orqaga"), courses),
                 MessageHandler(Filters.regex("🔝Asosiy Menyu"), start),
                 MessageHandler(Filters.text, salom)

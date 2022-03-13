@@ -40,7 +40,7 @@ def write(text):
     admin_steps.append(text)
     with open('steps.json', 'w') as outfile:
         json_string = json.dumps(admin_steps)
-        json.dump(json_string, outfile)
+        outfile.write(json_string)
 
 
 def start(update, context):
@@ -60,7 +60,7 @@ def courses(update, context):
 
 def groups(update, context):
     number = update.message.text[0]
-    if read() == 'TTF':
+    if read()[0] == 'TTF':
         if number == '1':
             m = tt_menu_1
         elif number == '2':
@@ -87,9 +87,7 @@ def salom(update, context):
     if g_number in groups_array:
         update.message.reply_text(groups_array[g_number])
     return user_states['groups']
-#
-# def  back(update, context):
-#
+
 
 def main():
     persistence = PicklePersistence(filename='conversationbot')

@@ -1,7 +1,8 @@
+import json
 import logging
 
 from telegram import ChatAction
-from telegram.ext import Updater, CommandHandler, ConversationHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, ConversationHandler, MessageHandler, Filters, PicklePersistence
 from config import BOT_TOKEN
 from groups import groups_array
 
@@ -16,8 +17,9 @@ def action(update, context):
     context.bot.send_chat_action(chat_id=update.effective_message.chat_id, action=ChatAction.TYPING)
 
 
+
+
 ADMIN = '590924106'
-admin_states = {}
 
 user_states = {
     'faculty': 'u1',
@@ -27,7 +29,19 @@ user_states = {
 
 # Variables for use in future
 admin_steps = []
-test_steps = []
+
+def read():
+    with open('steps.json') as json_file:
+        return json.load(json_file)
+
+
+def write(text):
+    admin_steps.clear()
+    admin_steps.append(text)
+    with open('steps.json', 'w') as outfile:
+        json_string = json.dumps(admin_steps)
+        json.dump(json_string, outfile)
+
 
 def start(update, context):
     chat_id = str(update.message.from_user.id)
@@ -37,15 +51,16 @@ def start(update, context):
 
 def courses(update, context):
     if update.message.text != "🔙Orqaga":
-        admin_steps.clear()
-        admin_steps.append(update.message.text)
+        # admin_steps.clear()
+        # admin_steps.append(update.message.text)
+        write(update.message.text)
     # print(admin_steps)
     update.message.reply_text("Kursni tanlang - Выберите курс:", reply_markup=courses_menu)
     return user_states['courses']
 
 def groups(update, context):
     number = update.message.text[0]
-    if admin_steps[0] == 'TTF':
+    if read() == 'TTF':
         if number == '1':
             m = tt_menu_1
         elif number == '2':
@@ -77,7 +92,8 @@ def salom(update, context):
 #
 
 def main():
-    updater = Updater(BOT_TOKEN, use_context=True)
+    persistence = PicklePersistence(filename='conversationbot')
+    updater = Updater(BOT_TOKEN, persistence=persistence, use_context=True)
     dispatcher = updater.dispatcher
 
 
@@ -87,10 +103,12 @@ def main():
         ],
         states={
             user_states['faculty']: [
+                CommandHandler('start', start),
                 MessageHandler(Filters.regex("TTF"), courses),
                 MessageHandler(Filters.regex("KIF"), courses)
             ],
             user_states['courses']: [
+                CommandHandler('start', start),
                 MessageHandler(Filters.regex("1-kurs"), groups),
                 MessageHandler(Filters.regex("2-kurs"), groups),
                 MessageHandler(Filters.regex("3-kurs"), groups),
@@ -99,6 +117,7 @@ def main():
                 MessageHandler(Filters.regex("🔝Asosiy Menyu"), start)
             ],
             user_states['groups']: [
+                CommandHandler('start', start),
                 MessageHandler(Filters.regex("🔙Orqaga"), courses),
                 MessageHandler(Filters.regex("🔝Asosiy Menyu"), start),
                 MessageHandler(Filters.text, salom)
@@ -106,7 +125,10 @@ def main():
         },
         fallbacks=[
             CommandHandler('start', start),
-        ]
+        ],
+        allow_reentry=True,
+        name="my_conversation",
+        persistent=True,
     )
 
     dispatcher.add_handler(controller)
